@@ -19,8 +19,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    self.window.backgroundColor = [UIColor greenColor];
+    
+    [self.window makeKeyAndVisible];
+    
     self.window.rootViewController = [GQFrameController new];
-    self.window.backgroundColor = [UIColor whiteColor];
     [self setupNavBar];
     // Override point for customization after application launch.
     return YES;
@@ -33,6 +37,7 @@
     navBar.barTintColor = [UIColor colorWithRed:rgb green:rgb blue:rgb alpha:0.9];
     navBar.tintColor = [UIColor whiteColor];
     navBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    //NSLog(@"start");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -66,7 +71,7 @@
 }
 
 #pragma mark - UISceneSession lifecycle
-
+/*
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
     // Called when a new scene session is being created.
     // Use this method to select a configuration to create the new scene with.
@@ -79,6 +84,6 @@
     // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 }
-
+*/
 
 @end

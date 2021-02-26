@@ -23,6 +23,7 @@
         [backgroundView setBackgroundColor:[UIColor colorWithRed:(239.0/255) green:(239.0/255) blue:(244.0/255) alpha:1.0]];
         [self setBackgroundView:backgroundView];
         
+        self.titleLabel = [UILabel new];
         [self.contentView addSubview:self.titleLabel];
         [self.titleLabel setFont:[UIFont systemFontOfSize:15]];
         [self.titleLabel setTextColor:[UIColor grayColor]];
@@ -40,7 +41,7 @@
 }
 
 - (void)setTitle:(NSString *)title{
-    self.title = title;
+    _title = title;
     [self.titleLabel setText:title];
 }
 

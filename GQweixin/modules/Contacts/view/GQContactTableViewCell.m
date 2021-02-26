@@ -4,9 +4,9 @@
 //
 //  Created by Li Guoqing on 2021/1/28.
 //
+//  设置联系人tableviewCell的视图
 
 #import "GQContactTableViewCell.h"
-#import "GQContact.h"
 #import "Masonry.h"
 
 @interface GQContactTableViewCell()
@@ -19,6 +19,7 @@
 
 @implementation GQContactTableViewCell
 
+// 初始化
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]){
         [self initUI];
@@ -26,6 +27,7 @@
     return self;
 }
 
+// 保存对应的模型
 - (void)setContactModel:(GQContact *)contact{
     _contactModel = contact;
     _nameLabel.text = [NSString stringWithFormat:@"%@", contact.showName];
@@ -33,11 +35,15 @@
     _remarkLabel.text = [NSString stringWithFormat:@"%@", contact.remarkName];
 }
 
+// cell的高度
 + (CGFloat)viewCellHeight{
     return 55.0f;
 }
 
+// 初始化contactTableViewCell的视图
 - (void)initUI{
+    //设置头像
+    self.iconImage = [UIImageView new];
     [self.contentView addSubview:self.iconImage];
     [self.iconImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
@@ -46,6 +52,10 @@
         make.height.mas_equalTo(self.iconImage.mas_width);
     }];
     
+    //设置名称
+    self.nameLabel = [UILabel new];
+    [self.nameLabel setTextColor:[UIColor darkGrayColor]];
+    [self.nameLabel setFont:[UIFont systemFontOfSize:16.0f]];
     [self.contentView addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.iconImage.mas_right).mas_offset(10);
@@ -53,5 +63,7 @@
         make.right.mas_lessThanOrEqualTo(-20);
     }];
     
+    //设置备注
+    self.remarkLabel = [UILabel new];
 }
 @end
