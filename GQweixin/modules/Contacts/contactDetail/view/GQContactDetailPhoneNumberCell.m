@@ -12,7 +12,7 @@
 @interface GQContactDetailPhoneNumberCell ()
 
 //手机号（以UIButton形式）
-@property (nonatomic, strong) UIButton *phoneButton;
+@property (nonatomic, strong) UILabel *phoneNumber;
 //标题文字
 @property (nonatomic, strong) UILabel *titleLabel;
 
@@ -47,27 +47,27 @@
     }];
     
     //手机号信息显示
-    self.phoneButton = [UIButton new];
-    [self.phoneButton.titleLabel setTextColor:[UIColor blueColor]];
-    [self.phoneButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
-    [self.contentView addSubview:self.phoneButton];
-    [self.phoneButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.phoneNumber = [UILabel new];
+    [self.phoneNumber setTextColor:[UIColor blueColor]];
+    [self.phoneNumber setFont:[UIFont systemFontOfSize:16]];
+    [self.contentView addSubview:self.phoneNumber];
+    [self.phoneNumber mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(0);
         make.left.mas_equalTo(self.titleLabel.mas_right).mas_offset(15);
         make.right.mas_lessThanOrEqualTo(-15);
     }];
-    [self.phoneButton addTarget:self action:@selector(callPhone:) forControlEvents:UIControlEventTouchUpInside];
+    //[self.phoneNumber addTarget:self action:@selector(callPhone:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //点击事件（未完成）
 -(void)callPhone:(UIButton *)sender{
-    NSString *phoneN = self.phoneButton.titleLabel.text;
+    NSString *phoneN = self.phoneNumber.text;
     NSString *urlPhone = [NSString stringWithFormat:@"tel:%@", phoneN];
 }
 
 //保存手机号信息
 -(void)setTitleText:(NSString *)titleText phoneNumber:(NSString *)phoneNumber{
     [self.titleLabel setText:titleText];
-    [self.phoneButton.titleLabel setText:phoneNumber];
+    [self.phoneNumber setText:phoneNumber];
 }
 @end

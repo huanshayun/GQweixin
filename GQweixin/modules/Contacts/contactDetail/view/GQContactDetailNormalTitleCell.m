@@ -45,9 +45,9 @@
     self.rightArrow = [UIImageView new];
     [self.rightArrow setImage:[UIImage imageNamed:@"right_arrow"]];
     [self.contentView addSubview:self.rightArrow];
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.rightArrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(0);
-        make.size.mas_equalTo(CGSizeMake(8, 13));
+        make.size.mas_equalTo(CGSizeMake(10, 15));
         make.right.mas_equalTo(-15);
     }];
     
@@ -59,7 +59,9 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(0);
         make.left.mas_equalTo(15);
-        make.right.mas_lessThanOrEqualTo(self.rightArrow.mas_left).mas_offset(-15);
+        make.right.mas_equalTo(0);
+        //make.right.mas_lessThanOrEqualTo(self.rightArrow.mas_left).mas_offset(-15);
     }];
+    
 }
 @end

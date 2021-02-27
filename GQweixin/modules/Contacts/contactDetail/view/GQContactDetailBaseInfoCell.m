@@ -68,7 +68,7 @@
     //展示名显示
     self.showName = [UILabel new];
     [self.showName setTextColor:[UIColor darkGrayColor]];
-    [self.showName setFont:[UIFont systemFontOfSize:17.0f]];
+    [self.showName setFont:[UIFont systemFontOfSize:20.0f]];
     [self.contentView addSubview:self.showName];
     [self.showName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.iconImage.mas_right).mas_offset(SPACE_X);
@@ -79,7 +79,7 @@
     //昵称显示
     self.userName = [UILabel new];
     [self.userName setTextColor:[UIColor grayColor]];
-    [self.userName setFont:[UIFont systemFontOfSize:14.0f]];
+    [self.userName setFont:[UIFont systemFontOfSize:16.0f]];
     [self.contentView addSubview:self.userName];
     [self.userName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.showName);
@@ -89,7 +89,7 @@
     //用户id显示
     self.userID = [UILabel new];
     [self.userID setTextColor:[UIColor grayColor]];
-    [self.userID setFont:[UIFont systemFontOfSize:14.0f]];
+    [self.userID setFont:[UIFont systemFontOfSize:16.0f]];
     [self.contentView addSubview:self.userID];
     [self.userID mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.showName);
@@ -99,12 +99,11 @@
     //位置信息显示
     self.location = [UILabel new];
     [self.location setTextColor:[UIColor grayColor]];
-    [self.location setFont:[UIFont systemFontOfSize:14.0f]];
+    [self.location setFont:[UIFont systemFontOfSize:16.0f]];
     [self.contentView addSubview:self.location];
     [self.location mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.showName);
         make.top.mas_equalTo(self.userID.mas_bottom).mas_offset(5);
     }];
-    
 }
 @end

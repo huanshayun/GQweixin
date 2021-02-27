@@ -102,7 +102,7 @@
     return [self.sectionData[section] count];
 }
 
-//
+//设置索引
 - (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView{
     return self.sectionIndex;
 }

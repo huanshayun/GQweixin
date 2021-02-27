@@ -14,6 +14,8 @@
 #import "GQContactDetailTagsCell.h"
 #import "GQContactDetailNormalTitleCell.h"
 #import "GQContactDetailPhoneNumberCell.h"
+#import "GQContactDetailAlbumCell.h"
+#import "GQContactDetailButtonCell.h"
 
 @interface GQContactDetailViewController ()
 
@@ -48,7 +50,8 @@
 - (void)loadView{
     [super loadView];
     [self setTitle:@"详细信息"];
-    [self.tableView setBackgroundColor:[UIColor whiteColor]];
+    [self.tableView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:0.95]];
+    //[self.tableView setBackgroundColor:[UIColor colorWithRed:(239/255) green:(239/255) blue:(244/255) alpha:1]];
     /*
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view).with.insets(UIEdgeInsetsMake(15, 0, 0, 0));
@@ -73,10 +76,10 @@
 
 #pragma mark - Table view data source
 
-//section数量（共有4个section，目前实现了前两个）
+//section数量（共有4个section）
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 2;
+    return 4;
 }
 
 //每个section的item数目
@@ -93,7 +96,12 @@
             return 2;
         }
     }
-    return 1;
+    else if(section == 2){//相册
+        return 2;
+    }
+    else{//聊天功能
+        return 2;
+    }
 }
 
 //设置tableviewcell的显示
@@ -104,13 +112,13 @@
     
     //基本信息section
     if(section == 0){
-        NSString *cellID = @"baseInfo";
-        GQContactDetailBaseInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        if(!cell){
-            cell = [[GQContactDetailBaseInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        NSString *baseInfoCellID = @"baseInfo";
+        GQContactDetailBaseInfoCell *baseInfoCell = [tableView dequeueReusableCellWithIdentifier:baseInfoCellID];
+        if(!baseInfoCell){
+            baseInfoCell = [[GQContactDetailBaseInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:baseInfoCellID];
         }
-        [cell setContactModel:_contactModel];
-        return cell;
+        [baseInfoCell setContactModel:_contactModel];
+        return baseInfoCell;
     }
     //权限和标签section
     else if(section == 1){
@@ -118,44 +126,90 @@
         if(row == 0){
             //若此联系人有设置备注和标签信息，则显示这些标签
             if(self.contactModel.userDetail.tags.count > 0){
-                NSString *cellID = @"tags";
-                GQContactDetailTagsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-                if(!cell){
-                    cell = [[GQContactDetailTagsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+                NSString *tagsCellID = @"tags";
+                GQContactDetailTagsCell *tagsCell = [tableView dequeueReusableCellWithIdentifier:tagsCellID];
+                if(!tagsCell){
+                    tagsCell = [[GQContactDetailTagsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tagsCellID];
                 }
-                [cell setTitleText:@"标签" tags:self.contactModel.userDetail.tags];
-                return cell;
+                [tagsCell setTitleText:@"标签" tags:self.contactModel.userDetail.tags];
+                return tagsCell;
             }
             //否则仅显示“设置备注和标签”
             else{
-                NSString *cellID = @"normalTitle";
-                GQContactDetailNormalTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-                if(!cell){
-                    cell = [[GQContactDetailNormalTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+                NSString *setTagCellID = @"normalTitle";
+                GQContactDetailNormalTitleCell *setTagCell = [tableView dequeueReusableCellWithIdentifier:setTagCellID];
+                if(!setTagCell){
+                    setTagCell = [[GQContactDetailNormalTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:setTagCellID];
                 }
-                [cell setTitleText:@"设置备注和标签"];
-                return cell;
+                [setTagCell setTitleText:@"设置备注和标签"];
+                return setTagCell;
             }
         }
         //显示”联系人权限“
-        else if(row == 1){
-            NSString *cellID = @"normalTitle";
-            GQContactDetailNormalTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-            if(!cell){
-                cell = [[GQContactDetailNormalTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        if(row == 1){
+            NSString *permissionCellID = @"normalTitle";
+            GQContactDetailNormalTitleCell *permissionCell = [tableView dequeueReusableCellWithIdentifier:permissionCellID];
+            if(!permissionCell){
+                permissionCell = [[GQContactDetailNormalTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:permissionCellID];
             }
-            [cell setTitleText:@"朋友权限"];
-            return cell;
+            [permissionCell setTitleText:@"朋友权限"];
+            return permissionCell;
         }
         //若联系人有”电话号码“信息，则显示
-        else{
-            NSString *cellID = @"phoneNumber";
-            GQContactDetailPhoneNumberCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-            if(!cell){
-                cell = [[GQContactDetailPhoneNumberCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        if(row == 2){
+            NSString *phoneCellID = @"phoneNumber";
+            GQContactDetailPhoneNumberCell *phoneCell = [tableView dequeueReusableCellWithIdentifier:phoneCellID];
+            if(!phoneCell){
+                phoneCell = [[GQContactDetailPhoneNumberCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:phoneCellID];
             }
-            [cell setTitleText:@"电话号码" phoneNumber:self.contactModel.userDetail.phoneNumber];
-            return cell;
+            [phoneCell setTitleText:@"电话号码" phoneNumber:self.contactModel.userDetail.phoneNumber];
+            return phoneCell;
+        }
+    }
+    //相册section
+    else if(section == 2){
+        //相册（朋友圈）
+        if(row == 0){
+            NSString *albumCellID = @"album";
+            GQContactDetailAlbumCell *albumCell = [tableView dequeueReusableCellWithIdentifier:albumCellID];
+            if(!albumCell){
+                albumCell = [[GQContactDetailAlbumCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:albumCellID];
+            }
+            [albumCell setTitleText:@"朋友圈" album:self.contactModel.userDetail.albums];
+            return albumCell;
+        }
+        //更多信息
+        else{
+            NSString *moreInfoCellID = @"normalTitle";
+            GQContactDetailNormalTitleCell *moreInfoCell = [tableView dequeueReusableCellWithIdentifier:moreInfoCellID];
+            if(!moreInfoCell){
+                moreInfoCell = [[GQContactDetailNormalTitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:moreInfoCellID];
+            }
+            [moreInfoCell setTitleText:@"更多信息"];
+            return moreInfoCell;
+        }
+    }
+    //功能section
+    else{
+        //“发消息”功能
+        if(row == 0){
+            NSString *chatButtonCellID = @"button";
+            GQContactDetailButtonCell *chatButtonCell = [tableView dequeueReusableCellWithIdentifier:chatButtonCellID];
+            if(!chatButtonCell){
+                chatButtonCell = [[GQContactDetailButtonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:chatButtonCellID];
+            }
+            [chatButtonCell setTitleText:@"发消息"];
+            return chatButtonCell;
+        }
+        //“音视频通话”功能
+        else{
+            NSString *AVchatButtonCellID = @"button";
+            GQContactDetailButtonCell *AVchatButtonCell = [tableView dequeueReusableCellWithIdentifier:AVchatButtonCellID];
+            if(!AVchatButtonCell){
+                AVchatButtonCell = [[GQContactDetailButtonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AVchatButtonCellID];
+            }
+            [AVchatButtonCell setTitleText:@"音视频通话"];
+            return AVchatButtonCell;
         }
     }
     // Configure the cell
@@ -166,15 +220,45 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSUInteger section = indexPath.section;
     NSUInteger row = indexPath.row;
-
+    
+    //基础信息
     if(section == 0){
         CGFloat cellHeight = [GQContactDetailBaseInfoCell viewCellHeight];
         return cellHeight;
     }
-    else{
+    //权限和标签
+    else if(section == 1){
         CGFloat cellHeight = [GQContactDetailNormalTitleCell viewCellHeight];
         return cellHeight;
     }
+    //相册
+    else if(section == 2){
+        if(row == 0){
+            CGFloat cellHeight = [GQContactDetailAlbumCell viewCellHeight];
+            return cellHeight;
+        }
+        else{
+            CGFloat cellHeight = [GQContactDetailNormalTitleCell viewCellHeight];
+            return cellHeight;
+        }
+    }
+    //功能
+    else{
+        CGFloat cellHeight = [GQContactDetailButtonCell viewCellHeight];
+        return cellHeight;
+    }
+    return 48.0f;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    return 15.0f;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *fotterView = [[UIView alloc] init];
+    [fotterView setBackgroundColor:[UIColor clearColor]];
+    return fotterView;
 }
 
 /*
