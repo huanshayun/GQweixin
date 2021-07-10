@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *groupName;
 //组内联系人成员
 @property (nonatomic, strong) NSMutableArray *groupMembers;
-//组内人数
+//组内人数，assign修饰
 @property (nonatomic) NSInteger membersCount;
 //索引
 @property (nonatomic) NSInteger indexTag;

@@ -66,4 +66,11 @@
     //设置备注
     self.remarkLabel = [UILabel new];
 }
+//懒加载，将属性设置放在取方法
+- (UIImageView *)iconImage{
+    if(_iconImage == nil){
+        _iconImage = [UIImageView new];
+    }
+    return _iconImage;
+}
 @end

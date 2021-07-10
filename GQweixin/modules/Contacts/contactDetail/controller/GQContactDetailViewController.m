@@ -87,19 +87,16 @@
 #warning Incomplete implementation, return the number of rows
     if(section == 0){//基本信息，仅有1个item
         return 1;
-    }
-    else if(section == 1){//标签和权限section
+    } else if(section == 1){//标签和权限section
         if(self.contactModel.userDetail.phoneNumber.length > 0){//联系人有“手机号码”信息
             return 3;
         }
         else{
             return 2;
         }
-    }
-    else if(section == 2){//相册
+    } else if(section == 2){//相册
         return 2;
-    }
-    else{//聊天功能
+    } else {//聊天功能
         return 2;
     }
 }

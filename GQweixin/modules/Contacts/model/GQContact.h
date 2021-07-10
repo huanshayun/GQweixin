@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GQContact : NSObject
 
-//用户昵称
+//用户昵称，注意使用copy修饰
 @property (nonatomic, strong) NSString *userName;
 //用户微信id
 @property (nonatomic, strong) NSString *userID;
